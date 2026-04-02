@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omar Galaviz | Automatización con IA</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+
+<style>
+/* Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #e0c3fc, #8ec5fc);
+    color: #1e293b;
+    scroll-behavior: smooth;
+}
+
+/* Navbar */
+header {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    z-index: 1000;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+    transition: background 0.3s;
+}
+header:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+header h1 {
+    color: #5a67d8;
+    font-family: 'Montserrat', sans-serif;
+}
+nav a {
+    margin-left: 25px;
+    text-decoration: none;
+    color: #1e293b;
+    font-weight: 600;
+}
+nav a:hover {
+    color: #5a67d8;
+}
+
+/* Hero */
+.hero {
+    text-align: center;
+    padding: 150px 20px 20px;
+    animation: fadeIn 1.5s ease-in-out;
+}
+.hero h2 {
+    font-size: 48px;
+    font-family: 'Montserrat', sans-serif;
+}
+.hero span {
+    color: #5a67d8;
+}
+.hero p {
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+/* Botón */
+.btn {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 15px 35px;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #5a67d8, #7f9cf5);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+/* Secciones */
+.section {
+    padding: 20px 20px;
+}
+.glass {
+    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.25);
+    border-radius: 25px;
+    padding: 35px;
+    margin: auto;
+    max-width: 1000px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+}
+
+/* Proyectos */
+.projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+.card {
+    padding: 25px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.3);
+    text-align: center;
+}
+.card h3 {
+    color: #5a67d8;
+    margin-bottom: 10px;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 30px;
+}
+
+/* WhatsApp flotante */
+.whatsapp-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #25D366;
+    color: white;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    text-decoration: none;
+}
+
+/* Animación */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+</style>
+
+<!-- Iconos -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<header>
+    <h1>Omar Galaviz</h1>
+    <nav>
+        <a href="#">Inicio</a>
+        <a href="#projects">Proyectos</a>
+        <a href="#contact">Contacto</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h2>Creo <span>Sistemas con IA</span> que trabajan 24/7 🤖</h2>
+    <p>Automatizo ventas, soporte y procesos para hacer crecer tu negocio.</p>
+
+    <a href="https://wa.me/573XXXXXXXXX" target="_blank" class="btn">
+        🚀 Agenda una demo por WhatsApp
+    </a>
+</section>
+
+<section class="section">
+    <div class="glass">
+        <h2>👨‍💻 Sobre mí</h2>
+        <p>Ayudo a empresas a automatizar procesos, generar leads y optimizar operaciones usando IA, n8n y sistemas inteligentes.</p>
+    </div>
+</section>
+
+<section class="section" id="projects">
+    <div class="glass">
+        <h2>🚀 Proyectos</h2>
+
+        <div class="projects">
+			<div class="card">
+			
+                <h3>Agente conversaciona AI</h3>
+                <p>Flujos automáticos para ventas y soporte.</p>
+            </div>
+			
+			<div class="card">
+                <h3>Agente tradicional menu telefonico</h3>
+                <p>Flujos automáticos para ventas y soporte.</p>
+            </div>
+            <!-- <div class="card">
+                <h3>Automatización con n8n</h3>
+                <p>Flujos automáticos para ventas y soporte.</p>
+            </div>
+
+            <div class="card">
+                <h3>Integración CRM</h3>
+                <p>Centralización y seguimiento automático de leads.</p>
+            </div> 
+
+            <div class="card">
+                <h3>Call Center + IA</h3>
+                <p>Optimización de atención con bots y analítica.</p>
+            </div>
+			-->
+
+        </div>
+    </div>
+</section>
+
+<section class="section" id="contact">
+    <div class="glass">
+        <h2>📩 Contacto</h2>
+        <p>Email: <a href="mailto:tucorreo@gmail.com">tucorreo@gmail.com</a></p>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Omar Galaviz | Automatización con IA</p>
+</footer>
+
+<!-- Botón flotante -->
+<a href="https://wa.me/573XXXXXXXXX" target="_blank" class="whatsapp-btn">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+</body>
+</html>
