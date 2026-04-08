@@ -425,9 +425,7 @@
                                 type="button"
                                 class="btn-demo"
                                 id="f1-btn"
-                                onclick="lanzarDemo(1)"
-                            >
-                                🚀 Lanzar Conversacional
+                                onclick="lanzarDemo(1)">Lanzar Conversacional
                             </button>
                             <div class="form-status" id="f1-status"></div>
                         </form>
@@ -535,7 +533,7 @@
                                 id="f2-btn"
                                 onclick="lanzarDemo(2)"
                             >
-                                🚀 Lanzar IVR
+                                Lanzar IVR
                             </button>
                             <div class="form-status" id="f2-status"></div>
                         </form>
@@ -549,11 +547,8 @@
                 <h2>📩 Contacto</h2>
                 <p>
                     Email:
-                    <a
-                        href="mailto:ogalaviz@kiwanoplus.com"
-                        style="color: #4ade80"
-                        >ogalaviz@kiwanoplus.com</a
-                    >
+                    <a href="mailto:ogalaviz@kiwanoplus.com"
+                        style="color: #4ade80">ogalaviz@kiwanoplus.com</a>
                 </p>
             </div>
         </section>
@@ -562,13 +557,7 @@
             <p>© 2026 Omar Galaviz | Automatización con IA</p>
         </footer>
 
-        <a
-            href="https://wa.me/573053958172"
-            target="_blank"
-            class="whatsapp-btn"
-        >
-            <i class="fab fa-whatsapp"></i>
-        </a>
+        <a href="https://wa.me/573053958172" target="_blank" class="whatsapp-btn"><i class="fab fa-whatsapp"></i></a>
 
         <script>
             // Intentos permitidos por formulario
@@ -667,7 +656,7 @@
                 const ip = await getUserIP();
 
                 if (getAttempts(ip, n) >= MAX_INTENTOS[n]) {
-                    setStatus(n, 'blocked', '🚫 Ya usaste tu demostración gratuita. Contáctanos para una demo personalizada. 👇');
+                    setStatus(n, 'blocked', 'Ya usaste tu demostración gratuita. Contáctanos para una demo personalizada.');
                     btn.textContent = 'Límite alcanzado';
                     return;
                 }
@@ -697,8 +686,8 @@
 
                     if (response.ok) {
                         const successMsg = restantes > 0
-                            ? `✅ ¡Listo! En breve recibirás la llamada de demostración. Te queda ${restantes} intento más.`
-                            : '✅ ¡Listo! En breve recibirás la llamada. Si quieres una demo más amplia y personalizada, contáctanos. 👇';
+                            ? `¡Listo! En breve recibirás la llamada de demostración. Te queda ${restantes} intento más.`
+                            : '¡Listo! En breve recibirás la llamada. Si quieres una demo más amplia y personalizada, contáctanos.';
 
                         setStatus(n, 'success', successMsg);
                         document.getElementById(`f${n}-nombre`).value   = '';
@@ -711,25 +700,24 @@
                             btn.textContent = 'Límite alcanzado';
                         } else {
                             btn.disabled = false;
-                            btn.textContent = '🚀 Lanzar demostración';
+                            btn.textContent = 'Lanzar demostración';
                         }
                     } else {
                         const errData = await response.json().catch(() => ({}));
                         if (response.status === 429) {
-                            setStatus(n, 'blocked', '🚫 Ya usaste tu demostración gratuita. Te invitamos a contactarnos para una demo
-            personalizada a tu medida. 👇');
+                            setStatus(n, 'blocked', 'Ya usaste tu demostración gratuita. Te invitamos a contactarnos para una demo personalizada a tu medida.');
                             btn.textContent = 'Límite alcanzado';
                         } else {
-                            setStatus(n, 'error', `❌ Error al procesar. ${errData.message || 'Intenta nuevamente.'}`);
+                            setStatus(n, 'error', `Error al procesar. ${errData.message || 'Intenta nuevamente.'}`);
                             btn.disabled = false;
-                            btn.textContent = '🚀 Lanzar demostración';
+                            btn.textContent = 'Lanzar demostración';
                         }
                     }
 
                 } catch (err) {
-                    setStatus(n, 'error', '❌ No se pudo conectar con el servidor. Verifica tu conexión.');
+                    setStatus(n, 'error', 'No se pudo conectar con el servidor. Verifica tu conexión.');
                     btn.disabled = false;
-                    btn.textContent = '🚀 Lanzar demostración';
+                    btn.textContent = 'Lanzar demostración';
                 }
             }
 
@@ -751,8 +739,7 @@
                         const btn = document.getElementById(`f${n}-btn`);
                         btn.disabled = true;
                         btn.textContent = 'Límite alcanzado';
-                        setStatus(n, 'blocked', '🚫 Ya usaste tu demostración gratuita. Te invitamos a contactarnos para una demo personalizada
-            a tu medida. 👇');
+                        setStatus(n, 'blocked', '🚫 Ya usaste tu demostración gratuita. Te invitamos a contactarnos para una demo personalizada a tu medida. ');
                     }
                 });
             })();
