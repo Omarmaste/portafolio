@@ -679,10 +679,13 @@
 
                 try {
                     const response = await fetch(API_ENDPOINTS[n], {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
+                      method: 'POST',
+                      headers: {
+                          'Content-Type': 'application/json',
+                          'X-Demo-Token': 'kw-demo-2026-xK9mP'
+                      },
+                      body: JSON.stringify(payload)
+                  });
 
                     if (response.ok) {
                         const successMsg = restantes > 0
