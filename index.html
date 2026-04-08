@@ -1,488 +1,767 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Omar Galaviz | Automatización con IA</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Omar Galaviz | Automatización con IA</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600&display=swap" rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@600&display=swap"
+            rel="stylesheet"
+        />
 
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(135deg, #041f0e, #0a3d1f);
-    color: #e8f5ee;
-    scroll-behavior: smooth;
-}
-
-header {
-    position: fixed; width: 100%; top: 0; left: 0;
-    background: rgba(4, 31, 14, 0.5);
-    backdrop-filter: blur(10px);
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 20px 40px; z-index: 1000;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.3);
-    transition: background 0.3s;
-}
-header:hover { background: rgba(4, 31, 14, 0.8); }
-header h1 { color: #4ade80; font-family: 'Montserrat', sans-serif; }
-nav a { margin-left: 25px; text-decoration: none; color: #e8f5ee; font-weight: 600; }
-nav a:hover { color: #4ade80; }
-
-.hero {
-    text-align: center; padding: 150px 20px 20px;
-    animation: fadeIn 1.5s ease-in-out;
-}
-.hero h2 { font-size: 48px; font-family: 'Montserrat', sans-serif; }
-.hero span { color: #4ade80; }
-.hero p { margin-top: 15px; font-size: 18px; color: #a3bfaf; }
-
-.btn {
-    display: inline-block; margin-top: 30px; padding: 15px 35px;
-    background: linear-gradient(90deg, #22c55e, #4ade80);
-    color: #041f0e; text-decoration: none; font-weight: bold; transition: 0.3s;
-}
-.btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(74,222,128,0.3); }
-
-.section { padding: 20px 20px; }
-.glass {
-    backdrop-filter: blur(20px);
-    background: rgba(10, 61, 31, 0.45);
-    border: 1px solid rgba(74, 222, 128, 0.2);
-    padding: 35px; margin: auto; max-width: 1000px;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
-}
-
-.projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-}
-.card {
-    padding: 25px;
-    background: rgba(4, 31, 14, 0.5);
-    border: 1px solid rgba(74, 222, 128, 0.15);
-    text-align: center;
-}
-.card h3 { color: #4ade80; margin-bottom: 10px; }
-.card > p { color: #a3bfaf; }
-
-/* ── FORMULARIO DEMO ── */
-.demo-form { margin-top: 20px; text-align: left; }
-.form-group { margin-bottom: 14px; }
-.form-group label {
-    display: block; font-size: 0.82rem; font-weight: 600;
-    color: #4ade80; margin-bottom: 5px; text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-.form-group input,
-.form-group select {
-    width: 100%; padding: 10px 12px;
-    background: rgba(4, 31, 14, 0.7);
-    border: 1px solid rgba(74, 222, 128, 0.25);
-    border-radius: 6px; color: #e8f5ee;
-    font-family: 'Roboto', sans-serif; font-size: 0.9rem;
-    outline: none; transition: border-color 0.2s;
-}
-.form-group input:focus,
-.form-group select:focus { border-color: #4ade80; }
-.form-group input::placeholder { color: #4a7a5a; }
-.form-group select option { background: #041f0e; color: #e8f5ee; }
-
-.phone-row { display: flex; gap: 8px; }
-.phone-row select { flex: 0 0 145px; }
-.phone-row input { flex: 1; }
-
-.demo-options { display: flex; gap: 8px; flex-wrap: wrap; }
-.demo-option {
-    flex: 1; min-width: 80px; padding: 10px 6px;
-    background: rgba(4, 31, 14, 0.7);
-    border: 1px solid rgba(74, 222, 128, 0.2);
-    border-radius: 6px; cursor: pointer;
-    text-align: center; font-size: 0.82rem; color: #a3bfaf;
-    transition: all 0.2s; user-select: none;
-}
-.demo-option.selected {
-    border-color: #4ade80; color: #4ade80;
-    background: rgba(74, 222, 128, 0.1);
-}
-.demo-option:hover { border-color: #4ade80; color: #4ade80; }
-
-.field-error {
-    font-size: 0.75rem; color: #f87171;
-    margin-top: 4px; display: none;
-}
-
-.btn-demo {
-    width: 100%; margin-top: 18px; padding: 13px;
-    background: linear-gradient(90deg, #22c55e, #4ade80);
-    color: #041f0e; border: none; border-radius: 6px;
-    font-weight: 700; font-size: 0.95rem; cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
-    transition: opacity 0.2s, transform 0.15s;
-}
-.btn-demo:hover:not(:disabled) { opacity: 0.9; transform: scale(1.02); }
-.btn-demo:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
-.form-status {
-    margin-top: 12px; padding: 10px 14px;
-    border-radius: 6px; font-size: 0.85rem;
-    display: none; text-align: center;
-}
-.form-status.success {
-    background: rgba(74, 222, 128, 0.12);
-    border: 1px solid #4ade80; color: #4ade80;
-}
-.form-status.error {
-    background: rgba(248, 113, 113, 0.12);
-    border: 1px solid #f87171; color: #f87171;
-}
-.form-status.blocked {
-    background: rgba(248, 113, 113, 0.15);
-    border: 1px solid #dc2626; color: #fca5a5;
-}
-
-footer { text-align: center; padding: 30px; color: #a3bfaf; }
-
-.whatsapp-btn {
-    position: fixed; bottom: 25px; right: 25px;
-    background: #25D366; color: white; border-radius: 50%;
-    width: 60px; height: 60px;
-    display: flex; justify-content: center; align-items: center;
-    font-size: 30px; text-decoration: none;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-</style>
-
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-</head>
-
-<body>
-
-<header>
-    <h1>Omar Galaviz</h1>
-    <nav>
-        <a href="#">Inicio</a>
-        <a href="#projects">Proyectos</a>
-        <a href="#contact">Contacto</a>
-    </nav>
-</header>
-
-<section class="hero">
-    <h2>Creo <span>Sistemas con IA</span> que trabajan 24/7 🤖</h2>
-    <p>Automatizo ventas, soporte y procesos para hacer crecer tu negocio.</p>
-    <a href="https://wa.me/573053958172" target="_blank" class="btn">
-        🚀 Agenda una demo personalizada por WhatsApp
-    </a>
-</section>
-
-<section class="section">
-    <div class="glass">
-        <h2 style="padding-bottom:10px;">👨‍💻 Sobre mí</h2>
-        <p>Lidero implementaciones de automatización para contact centers: desde IVR inteligentes y agentes conversacionales hasta dashboards de analítica en Power BI. Transformo procesos de ventas, cobranza y soporte con IA aplicada.</p>
-    </div>
-</section>
-
-<section class="section" id="projects">
-    <div class="glass">
-        <h2 style="padding-bottom:10px;">🚀 Proyectos</h2>
-
-        <div class="projects">
-
-            <!-- ── CARD 1: Conversacional ── -->
-            <div class="card">
-                <h3>Agente de Voz Conversacional con IA</h3>
-                <p>Interactúa de forma natural como un humano, comprende el contexto de cada cliente y responde con información personalizada en tiempo real.</p>
-
-                <form class="demo-form" id="form1" novalidate>
-                    <div class="form-group">
-                        <label>Nombre</label>
-                        <input type="text" id="f1-nombre" placeholder="TuNombre" maxlength="16" autocomplete="off">
-                        <div class="field-error" id="f1-err-nombre">Solo letras, sin espacios (máx. 16)</div>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="f1-email" placeholder="correo@ejemplo.com" autocomplete="off">
-                        <div class="field-error" id="f1-err-email">Ingresa un email válido</div>
-                    </div>
-                    <div class="form-group">
-                        <label>País · Número</label>
-                        <div class="phone-row">
-                            <select id="f1-pais">
-                                <option value="+1">🇺🇸 USA +1</option>
-                                <option value="+57" selected>🇨🇴 Colombia +57</option>
-                                <option value="+593">🇪🇨 Ecuador +593</option>
-                                <option value="+34">🇪🇸 España +34</option>
-                                <option value="+58">🇻🇪 Venezuela +58</option>
-                            </select>
-                            <input type="tel" id="f1-telefono" placeholder="3001234567" autocomplete="off">
-                        </div>
-                        <div class="field-error" id="f1-err-telefono">Solo números</div>
-                    </div>
-                    <div class="form-group">
-                        <label>¿Qué demo quieres interactuar?</label>
-                        <div class="demo-options">
-                            <div class="demo-option selected" data-form="1" data-value="cobranza" onclick="selectDemo(this)">💰 Cobranza</div>
-                            <div class="demo-option" data-form="1" data-value="encuesta" onclick="selectDemo(this)">📋 Encuesta</div>
-                        </div>
-                        <div class="field-error" id="f1-err-demo">Selecciona una demo</div>
-                    </div>
-                    <button type="button" class="btn-demo" id="f1-btn" onclick="lanzarDemo(1)">
-                        🚀 Lanzar Conversacinoal
-                    </button>
-                    <div class="form-status" id="f1-status"></div>
-                </form>
-            </div>
-
-            <!-- ── CARD 2: Menú Automatizado ── -->
-            <div class="card">
-                <h3>Agente de Voz con Menú Automatizado</h3>
-                <p>Guía al cliente mediante opciones claras (menú de llamadas), resolviendo solicitudes simples de forma rápida y organizada, sin necesidad de conversación.</p>
-
-                <form class="demo-form" id="form2" novalidate>
-                    <div class="form-group">
-                        <label>Nombre</label>
-                        <input type="text" id="f2-nombre" placeholder="TuNombre" maxlength="16" autocomplete="off">
-                        <div class="field-error" id="f2-err-nombre">Solo letras, sin espacios (máx. 16)</div>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="f2-email" placeholder="correo@ejemplo.com" autocomplete="off">
-                        <div class="field-error" id="f2-err-email">Ingresa un email válido</div>
-                    </div>
-                    <div class="form-group">
-                        <label>País · Número</label>
-                        <div class="phone-row">
-                            <select id="f2-pais">
-                                <option value="+1">🇺🇸 USA +1</option>
-                                <option value="+57" selected>🇨🇴 Colombia +57</option>
-                                <option value="+593">🇪🇨 Ecuador +593</option>
-                                <option value="+34">🇪🇸 España +34</option>
-                                <option value="+58">🇻🇪 Venezuela +58</option>
-                            </select>
-                            <input type="tel" id="f2-telefono" placeholder="3001234567" autocomplete="off">
-                        </div>
-                        <div class="field-error" id="f2-err-telefono">Solo números</div>
-                    </div>
-                    <div class="form-group">
-                        <label>¿Qué demo quieres interactuar?</label>
-                        <div class="demo-options">
-                            <div class="demo-option selected" data-form="2" data-value="cobranza" onclick="selectDemo(this)">💰 Cobranza</div>
-                            <div class="demo-option" data-form="2" data-value="encuesta" onclick="selectDemo(this)">📋 Encuesta</div>
-                            <div class="demo-option" data-form="2" data-value="anuncio" onclick="selectDemo(this)">📣 Promocion</div>
-                        </div>
-                        <div class="field-error" id="f2-err-demo">Selecciona una demo</div>
-                    </div>
-                    <button type="button" class="btn-demo" id="f2-btn" onclick="lanzarDemo(2)">
-                        🚀 Lanzar IVR
-                    </button>
-                    <div class="form-status" id="f2-status"></div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<section class="section" id="contact">
-    <div class="glass">
-        <h2>📩 Contacto</h2>
-        <p>Email: <a href="mailto:ogalaviz@kiwanoplus.com" style="color:#4ade80;">ogalaviz@kiwanoplus.com</a></p>
-    </div>
-</section>
-
-<footer>
-    <p>© 2026 Omar Galaviz | Automatización con IA</p>
-</footer>
-
-<a href="https://wa.me/573053958172" target="_blank" class="whatsapp-btn">
-    <i class="fab fa-whatsapp"></i>
-</a>
-
-<script>
-const MAX_INTENTOS = 2;
-const STORAGE_KEY  = 'demo_attempts';
-
-// Endpoints por formulario — reemplaza con tus URLs reales
-const API_ENDPOINTS = {
-    1: 'https://TU-API-ENDPOINT.com/demo-conversacional',
-    2: 'https://TU-API-ENDPOINT.com/demo-menu'
-};
-
-// ── SELECCIÓN DE DEMO ────────────────────────────────────────
-function selectDemo(el) {
-    const form = el.getAttribute('data-form');
-    document.querySelectorAll(`.demo-option[data-form="${form}"]`)
-            .forEach(o => o.classList.remove('selected'));
-    el.classList.add('selected');
-}
-
-function getDemoSeleccionado(formNum) {
-    const sel = document.querySelector(`.demo-option[data-form="${formNum}"].selected`);
-    return sel ? sel.getAttribute('data-value') : null;
-}
-
-// ── CONTROL DE INTENTOS POR IP ───────────────────────────────
-function getAttempts(ip, formNum) {
-    try {
-        const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-        const key  = `${ip}_f${formNum}`;
-        return data[key] || 0;
-    } catch { return 0; }
-}
-
-function registerAttempt(ip, formNum) {
-    try {
-        const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-        const key  = `${ip}_f${formNum}`;
-        data[key]  = (data[key] || 0) + 1;
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-        return data[key];
-    } catch { return MAX_INTENTOS; }
-}
-
-async function getUserIP() {
-    try {
-        const r = await fetch('https://api.ipify.org?format=json');
-        const d = await r.json();
-        return d.ip || 'unknown';
-    } catch { return 'unknown'; }
-}
-
-// ── VALIDACIONES ─────────────────────────────────────────────
-function showError(id, show) {
-    const el = document.getElementById(id);
-    if (el) el.style.display = show ? 'block' : 'none';
-}
-
-function validarNombre(v) { return /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,16}$/.test(v); }
-function validarEmail(v)  { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-function validarTel(v)    { return /^\d{6,15}$/.test(v); }
-
-function validarFormulario(n) {
-    const nombre = document.getElementById(`f${n}-nombre`).value.trim();
-    const email  = document.getElementById(`f${n}-email`).value.trim();
-    const tel    = document.getElementById(`f${n}-telefono`).value.trim();
-    const demo   = getDemoSeleccionado(n);
-    let ok = true;
-
-    if (!validarNombre(nombre)) { showError(`f${n}-err-nombre`,   true);  ok = false; }
-    else                         { showError(`f${n}-err-nombre`,   false); }
-    if (!validarEmail(email))   { showError(`f${n}-err-email`,    true);  ok = false; }
-    else                         { showError(`f${n}-err-email`,    false); }
-    if (!validarTel(tel))       { showError(`f${n}-err-telefono`, true);  ok = false; }
-    else                         { showError(`f${n}-err-telefono`, false); }
-    if (!demo)                  { showError(`f${n}-err-demo`,     true);  ok = false; }
-    else                         { showError(`f${n}-err-demo`,     false); }
-
-    return ok;
-}
-
-function setStatus(n, tipo, msg) {
-    const el = document.getElementById(`f${n}-status`);
-    el.className = `form-status ${tipo}`;
-    el.textContent = msg;
-    el.style.display = 'block';
-}
-
-// ── LANZAR DEMO ───────────────────────────────────────────────
-async function lanzarDemo(n) {
-    if (!validarFormulario(n)) return;
-
-    const btn = document.getElementById(`f${n}-btn`);
-    btn.disabled = true;
-    btn.textContent = 'Verificando...';
-
-    const ip = await getUserIP();
-
-    if (getAttempts(ip, n) >= MAX_INTENTOS) {
-        setStatus(n, 'blocked', '🚫 Has alcanzado el límite de demostraciones. Contáctanos por WhatsApp.');
-        btn.textContent = 'Límite alcanzado';
-        return;
-    }
-
-    const intentoActual = registerAttempt(ip, n);
-    const restantes     = MAX_INTENTOS - intentoActual;
-
-    btn.textContent = 'Lanzando demo...';
-
-    const payload = {
-        nombre:    document.getElementById(`f${n}-nombre`).value.trim(),
-        email:     document.getElementById(`f${n}-email`).value.trim(),
-        pais:      document.getElementById(`f${n}-pais`).value,
-        telefono:  document.getElementById(`f${n}-pais`).value + document.getElementById(`f${n}-telefono`).value.trim(),
-        demo:      getDemoSeleccionado(n),
-        agente:    n === 1 ? 'conversacional' : 'menu',
-        ip:        ip,
-        timestamp: new Date().toISOString()
-    };
-
-    try {
-        const response = await fetch(API_ENDPOINTS[n], {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // 'Authorization': 'Bearer TU_TOKEN_AQUI'
-            },
-            body: JSON.stringify(payload)
-        });
-
-        if (response.ok) {
-            setStatus(n, 'success', `✅ ¡Listo! En breve recibirás la llamada de demostración. ${restantes > 0 ? `Te queda ${restantes} intento más.` : 'Has usado todos tus intentos.'}`);
-            document.getElementById(`f${n}-nombre`).value   = '';
-            document.getElementById(`f${n}-email`).value    = '';
-            document.getElementById(`f${n}-telefono`).value = '';
-            document.querySelectorAll(`.demo-option[data-form="${n}"]`).forEach(o => o.classList.remove('selected'));
-            document.querySelector(`.demo-option[data-form="${n}"][data-value="cobranza"]`).classList.add('selected');
-            if (restantes === 0) {
-                btn.textContent = 'Límite alcanzado';
-            } else {
-                btn.disabled = false;
-                btn.textContent = '🚀 Lanzar demostración';
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
-        } else {
-            const errData = await response.json().catch(() => ({}));
-            setStatus(n, 'error', `❌ Error al procesar. ${errData.message || 'Intenta nuevamente.'}`);
-            btn.disabled = false;
-            btn.textContent = '🚀 Lanzar demostración';
-        }
 
-    } catch (err) {
-        setStatus(n, 'error', '❌ No se pudo conectar con el servidor. Verifica tu conexión.');
-        btn.disabled = false;
-        btn.textContent = '🚀 Lanzar demostración';
-    }
-}
+            body {
+                font-family: "Roboto", sans-serif;
+                background: linear-gradient(135deg, #041f0e, #0a3d1f);
+                color: #e8f5ee;
+                scroll-behavior: smooth;
+            }
 
-// ── FILTROS EN TIEMPO REAL ────────────────────────────────────
-[1, 2].forEach(n => {
-    document.getElementById(`f${n}-nombre`).addEventListener('input', function() {
-        this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ]/g, '').slice(0, 16);
-    });
-    document.getElementById(`f${n}-telefono`).addEventListener('input', function() {
-        this.value = this.value.replace(/\D/g, '');
-    });
-});
+            header {
+                position: fixed;
+                width: 100%;
+                top: 0;
+                left: 0;
+                background: rgba(4, 31, 14, 0.5);
+                backdrop-filter: blur(10px);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 20px 40px;
+                z-index: 1000;
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+                transition: background 0.3s;
+            }
+            header:hover {
+                background: rgba(4, 31, 14, 0.8);
+            }
+            header h1 {
+                color: #4ade80;
+                font-family: "Montserrat", sans-serif;
+            }
+            nav a {
+                margin-left: 25px;
+                text-decoration: none;
+                color: #e8f5ee;
+                font-weight: 600;
+            }
+            nav a:hover {
+                color: #4ade80;
+            }
 
-// ── VERIFICAR BLOQUEO AL CARGAR ───────────────────────────────
-(async () => {
-    const ip = await getUserIP();
-    [1, 2].forEach(n => {
-        if (getAttempts(ip, n) >= MAX_INTENTOS) {
-            const btn = document.getElementById(`f${n}-btn`);
-            btn.disabled = true;
-            btn.textContent = 'Límite alcanzado';
-            setStatus(n, 'blocked', '🚫 Has alcanzado el límite de demostraciones. Contáctanos por WhatsApp.');
-        }
-    });
-})();
-</script>
+            .hero {
+                text-align: center;
+                padding: 150px 20px 20px;
+                animation: fadeIn 1.5s ease-in-out;
+            }
+            .hero h2 {
+                font-size: 48px;
+                font-family: "Montserrat", sans-serif;
+            }
+            .hero span {
+                color: #4ade80;
+            }
+            .hero p {
+                margin-top: 15px;
+                font-size: 18px;
+                color: #a3bfaf;
+            }
 
-</body>
+            .btn {
+                display: inline-block;
+                margin-top: 30px;
+                padding: 15px 35px;
+                background: linear-gradient(90deg, #22c55e, #4ade80);
+                color: #041f0e;
+                text-decoration: none;
+                font-weight: bold;
+                transition: 0.3s;
+            }
+            .btn:hover {
+                transform: scale(1.05);
+                box-shadow: 0 8px 25px rgba(74, 222, 128, 0.3);
+            }
+
+            .section {
+                padding: 20px 20px;
+            }
+            .glass {
+                backdrop-filter: blur(20px);
+                background: rgba(10, 61, 31, 0.45);
+                border: 1px solid rgba(74, 222, 128, 0.2);
+                padding: 35px;
+                margin: auto;
+                max-width: 1000px;
+                box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+            }
+
+            .projects {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 25px;
+            }
+            .card {
+                padding: 25px;
+                background: rgba(4, 31, 14, 0.5);
+                border: 1px solid rgba(74, 222, 128, 0.15);
+                text-align: center;
+            }
+            .card h3 {
+                color: #4ade80;
+                margin-bottom: 10px;
+            }
+            .card > p {
+                color: #a3bfaf;
+            }
+
+            /* ── FORMULARIO DEMO ── */
+            .demo-form {
+                margin-top: 20px;
+                text-align: left;
+            }
+            .form-group {
+                margin-bottom: 14px;
+            }
+            .form-group label {
+                display: block;
+                font-size: 0.82rem;
+                font-weight: 600;
+                color: #4ade80;
+                margin-bottom: 5px;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .form-group input,
+            .form-group select {
+                width: 100%;
+                padding: 10px 12px;
+                background: rgba(4, 31, 14, 0.7);
+                border: 1px solid rgba(74, 222, 128, 0.25);
+                border-radius: 6px;
+                color: #e8f5ee;
+                font-family: "Roboto", sans-serif;
+                font-size: 0.9rem;
+                outline: none;
+                transition: border-color 0.2s;
+            }
+            .form-group input:focus,
+            .form-group select:focus {
+                border-color: #4ade80;
+            }
+            .form-group input::placeholder {
+                color: #4a7a5a;
+            }
+            .form-group select option {
+                background: #041f0e;
+                color: #e8f5ee;
+            }
+
+            .phone-row {
+                display: flex;
+                gap: 8px;
+            }
+            .phone-row select {
+                flex: 0 0 145px;
+            }
+            .phone-row input {
+                flex: 1;
+            }
+
+            .demo-options {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+            .demo-option {
+                flex: 1;
+                min-width: 80px;
+                padding: 10px 6px;
+                background: rgba(4, 31, 14, 0.7);
+                border: 1px solid rgba(74, 222, 128, 0.2);
+                border-radius: 6px;
+                cursor: pointer;
+                text-align: center;
+                font-size: 0.82rem;
+                color: #a3bfaf;
+                transition: all 0.2s;
+                user-select: none;
+            }
+            .demo-option.selected {
+                border-color: #4ade80;
+                color: #4ade80;
+                background: rgba(74, 222, 128, 0.1);
+            }
+            .demo-option:hover {
+                border-color: #4ade80;
+                color: #4ade80;
+            }
+
+            .field-error {
+                font-size: 0.75rem;
+                color: #f87171;
+                margin-top: 4px;
+                display: none;
+            }
+
+            .btn-demo {
+                width: 100%;
+                margin-top: 18px;
+                padding: 13px;
+                background: linear-gradient(90deg, #22c55e, #4ade80);
+                color: #041f0e;
+                border: none;
+                border-radius: 6px;
+                font-weight: 700;
+                font-size: 0.95rem;
+                cursor: pointer;
+                font-family: "Montserrat", sans-serif;
+                transition:
+                    opacity 0.2s,
+                    transform 0.15s;
+            }
+            .btn-demo:hover:not(:disabled) {
+                opacity: 0.9;
+                transform: scale(1.02);
+            }
+            .btn-demo:disabled {
+                opacity: 0.4;
+                cursor: not-allowed;
+                transform: none;
+            }
+
+            .form-status {
+                margin-top: 12px;
+                padding: 10px 14px;
+                border-radius: 6px;
+                font-size: 0.85rem;
+                display: none;
+                text-align: center;
+            }
+            .form-status.success {
+                background: rgba(74, 222, 128, 0.12);
+                border: 1px solid #4ade80;
+                color: #4ade80;
+            }
+            .form-status.error {
+                background: rgba(248, 113, 113, 0.12);
+                border: 1px solid #f87171;
+                color: #f87171;
+            }
+            .form-status.blocked {
+                background: rgba(248, 113, 113, 0.15);
+                border: 1px solid #dc2626;
+                color: #fca5a5;
+            }
+
+            footer {
+                text-align: center;
+                padding: 30px;
+                color: #a3bfaf;
+            }
+
+            .whatsapp-btn {
+                position: fixed;
+                bottom: 25px;
+                right: 25px;
+                background: #25d366;
+                color: white;
+                border-radius: 50%;
+                width: 60px;
+                height: 60px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 30px;
+                text-decoration: none;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        </style>
+
+        <script
+            src="https://kit.fontawesome.com/a076d05399.js"
+            crossorigin="anonymous"
+        ></script>
+    </head>
+
+    <body>
+        <header>
+            <h1>Omar Galaviz</h1>
+            <nav>
+                <a href="#">Inicio</a>
+                <a href="#projects">Proyectos</a>
+                <a href="#contact">Contacto</a>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <h2>Creo <span>Sistemas con IA</span> que trabajan 24/7 🤖</h2>
+            <p>
+                Automatizo ventas, soporte y procesos para hacer crecer tu
+                negocio.
+            </p>
+            <a href="https://wa.me/573053958172" target="_blank" class="btn">
+                🚀 Agenda una demo personalizada por WhatsApp
+            </a>
+        </section>
+
+        <section class="section">
+            <div class="glass">
+                <h2 style="padding-bottom: 10px">👨‍💻 Sobre mí</h2>
+                <p>
+                    Lidero implementaciones de automatización para contact
+                    centers: desde IVR inteligentes y agentes conversacionales
+                    hasta dashboards de analítica en Power BI. Transformo
+                    procesos de ventas, cobranza y soporte con IA aplicada.
+                </p>
+            </div>
+        </section>
+
+        <section class="section" id="projects">
+            <div class="glass">
+                <h2 style="padding-bottom: 10px">🚀 Proyectos</h2>
+
+                <div class="projects">
+                    <!-- ── CARD 1: Conversacional ── -->
+                    <div class="card">
+                        <h3>Agente de Voz Conversacional con IA</h3>
+                        <p>
+                            Interactúa de forma natural como un humano,
+                            comprende el contexto de cada cliente y responde con
+                            información personalizada en tiempo real.
+                        </p>
+
+                        <form class="demo-form" id="form1" novalidate>
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input
+                                    type="text"
+                                    id="f1-nombre"
+                                    placeholder="TuNombre"
+                                    maxlength="16"
+                                    autocomplete="off"
+                                />
+                                <div class="field-error" id="f1-err-nombre">
+                                    Solo letras, sin espacios (máx. 16)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input
+                                    type="email"
+                                    id="f1-email"
+                                    placeholder="correo@ejemplo.com"
+                                    autocomplete="off"
+                                />
+                                <div class="field-error" id="f1-err-email">
+                                    Ingresa un email válido
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>País · Número</label>
+                                <div class="phone-row">
+                                    <select id="f1-pais">
+                                        <option value="+1">🇺🇸 USA +1</option>
+                                        <option value="+57" selected>
+                                            🇨🇴 Colombia +57
+                                        </option>
+                                        <option value="+593">
+                                            🇪🇨 Ecuador +593
+                                        </option>
+                                        <option value="+34">
+                                            🇪🇸 España +34
+                                        </option>
+                                        <option value="+58">
+                                            🇻🇪 Venezuela +58
+                                        </option>
+                                    </select>
+                                    <input
+                                        type="tel"
+                                        id="f1-telefono"
+                                        placeholder="3001234567"
+                                        autocomplete="off"
+                                    />
+                                </div>
+                                <div class="field-error" id="f1-err-telefono">
+                                    Solo números
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>¿Qué demo quieres interactuar?</label>
+                                <div class="demo-options">
+                                    <div
+                                        class="demo-option selected"
+                                        data-form="1"
+                                        data-value="cobranza"
+                                        onclick="selectDemo(this)"
+                                    >
+                                        💰 Cobranza
+                                    </div>
+                                    <div
+                                        class="demo-option"
+                                        data-form="1"
+                                        data-value="encuesta"
+                                        onclick="selectDemo(this)"
+                                    >
+                                        📋 Encuesta
+                                    </div>
+                                </div>
+                                <div class="field-error" id="f1-err-demo">
+                                    Selecciona una demo
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                class="btn-demo"
+                                id="f1-btn"
+                                onclick="lanzarDemo(1)"
+                            >
+                                🚀 Lanzar Conversacional
+                            </button>
+                            <div class="form-status" id="f1-status"></div>
+                        </form>
+                    </div>
+
+                    <!-- ── CARD 2: Menú Automatizado ── -->
+                    <div class="card">
+                        <h3>Agente de Voz con Menú Automatizado</h3>
+                        <p>
+                            Guía al cliente mediante opciones claras (menú de
+                            llamadas), resolviendo solicitudes simples de forma
+                            rápida y organizada, sin necesidad de conversación.
+                        </p>
+
+                        <form class="demo-form" id="form2" novalidate>
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input
+                                    type="text"
+                                    id="f2-nombre"
+                                    placeholder="TuNombre"
+                                    maxlength="16"
+                                    autocomplete="off"
+                                />
+                                <div class="field-error" id="f2-err-nombre">
+                                    Solo letras, sin espacios (máx. 16)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input
+                                    type="email"
+                                    id="f2-email"
+                                    placeholder="correo@ejemplo.com"
+                                    autocomplete="off"
+                                />
+                                <div class="field-error" id="f2-err-email">
+                                    Ingresa un email válido
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>País · Número</label>
+                                <div class="phone-row">
+                                    <select id="f2-pais">
+                                        <option value="+1">🇺🇸 USA +1</option>
+                                        <option value="+57" selected>
+                                            🇨🇴 Colombia +57
+                                        </option>
+                                        <option value="+593">
+                                            🇪🇨 Ecuador +593
+                                        </option>
+                                        <option value="+34">
+                                            🇪🇸 España +34
+                                        </option>
+                                        <option value="+58">
+                                            🇻🇪 Venezuela +58
+                                        </option>
+                                    </select>
+                                    <input
+                                        type="tel"
+                                        id="f2-telefono"
+                                        placeholder="3001234567"
+                                        autocomplete="off"
+                                    />
+                                </div>
+                                <div class="field-error" id="f2-err-telefono">
+                                    Solo números
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>¿Qué demo quieres interactuar?</label>
+                                <div class="demo-options">
+                                    <div
+                                        class="demo-option selected"
+                                        data-form="2"
+                                        data-value="cobranza"
+                                        onclick="selectDemo(this)"
+                                    >
+                                        💰 Cobranza
+                                    </div>
+                                    <div
+                                        class="demo-option"
+                                        data-form="2"
+                                        data-value="encuesta"
+                                        onclick="selectDemo(this)"
+                                    >
+                                        📋 Encuesta
+                                    </div>
+                                    <div
+                                        class="demo-option"
+                                        data-form="2"
+                                        data-value="anuncio"
+                                        onclick="selectDemo(this)"
+                                    >
+                                        📣 Promocion
+                                    </div>
+                                </div>
+                                <div class="field-error" id="f2-err-demo">
+                                    Selecciona una demo
+                                </div>
+                            </div>
+                            <button
+                                type="button"
+                                class="btn-demo"
+                                id="f2-btn"
+                                onclick="lanzarDemo(2)"
+                            >
+                                🚀 Lanzar IVR
+                            </button>
+                            <div class="form-status" id="f2-status"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="contact">
+            <div class="glass">
+                <h2>📩 Contacto</h2>
+                <p>
+                    Email:
+                    <a
+                        href="mailto:ogalaviz@kiwanoplus.com"
+                        style="color: #4ade80"
+                        >ogalaviz@kiwanoplus.com</a
+                    >
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            <p>© 2026 Omar Galaviz | Automatización con IA</p>
+        </footer>
+
+        <a
+            href="https://wa.me/573053958172"
+            target="_blank"
+            class="whatsapp-btn"
+        >
+            <i class="fab fa-whatsapp"></i>
+        </a>
+
+        <script>
+            // Intentos permitidos por formulario
+            const MAX_INTENTOS = { 1: 1, 2: 2 };
+            const STORAGE_KEY  = 'demo_attempts';
+
+            // Endpoints por formulario
+            const API_ENDPOINTS = {
+                1: 'https://sites.kiwano-plus.com/api/demo/conversacional',
+                2: 'https://TU-API-ENDPOINT.com/demo-menu'
+            };
+
+            // ── SELECCIÓN DE DEMO ────────────────────────────────────────
+            function selectDemo(el) {
+                const form = el.getAttribute('data-form');
+                document.querySelectorAll(`.demo-option[data-form="${form}"]`)
+                        .forEach(o => o.classList.remove('selected'));
+                el.classList.add('selected');
+            }
+
+            function getDemoSeleccionado(formNum) {
+                const sel = document.querySelector(`.demo-option[data-form="${formNum}"].selected`);
+                return sel ? sel.getAttribute('data-value') : null;
+            }
+
+            // ── CONTROL DE INTENTOS POR IP ───────────────────────────────
+            function getAttempts(ip, formNum) {
+                try {
+                    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+                    return data[`${ip}_f${formNum}`] || 0;
+                } catch { return 0; }
+            }
+
+            function registerAttempt(ip, formNum) {
+                try {
+                    const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+                    const key  = `${ip}_f${formNum}`;
+                    data[key]  = (data[key] || 0) + 1;
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+                    return data[key];
+                } catch { return MAX_INTENTOS[formNum]; }
+            }
+
+            async function getUserIP() {
+                try {
+                    const r = await fetch('https://api.ipify.org?format=json');
+                    const d = await r.json();
+                    return d.ip || 'unknown';
+                } catch { return 'unknown'; }
+            }
+
+            // ── VALIDACIONES ─────────────────────────────────────────────
+            function showError(id, show) {
+                const el = document.getElementById(id);
+                if (el) el.style.display = show ? 'block' : 'none';
+            }
+
+            function validarNombre(v) { return /^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,16}$/.test(v); }
+            function validarEmail(v)  { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+            function validarTel(v)    { return /^\d{6,15}$/.test(v); }
+
+            function validarFormulario(n) {
+                const nombre = document.getElementById(`f${n}-nombre`).value.trim();
+                const email  = document.getElementById(`f${n}-email`).value.trim();
+                const tel    = document.getElementById(`f${n}-telefono`).value.trim();
+                const demo   = getDemoSeleccionado(n);
+                let ok = true;
+
+                if (!validarNombre(nombre)) { showError(`f${n}-err-nombre`,   true);  ok = false; }
+                else                         { showError(`f${n}-err-nombre`,   false); }
+                if (!validarEmail(email))   { showError(`f${n}-err-email`,    true);  ok = false; }
+                else                         { showError(`f${n}-err-email`,    false); }
+                if (!validarTel(tel))       { showError(`f${n}-err-telefono`, true);  ok = false; }
+                else                         { showError(`f${n}-err-telefono`, false); }
+                if (!demo)                  { showError(`f${n}-err-demo`,     true);  ok = false; }
+                else                         { showError(`f${n}-err-demo`,     false); }
+
+                return ok;
+            }
+
+            function setStatus(n, tipo, msg) {
+                const el = document.getElementById(`f${n}-status`);
+                el.className = `form-status ${tipo}`;
+                el.textContent = msg;
+                el.style.display = 'block';
+            }
+
+            // ── LANZAR DEMO ───────────────────────────────────────────────
+            async function lanzarDemo(n) {
+                if (!validarFormulario(n)) return;
+
+                const btn = document.getElementById(`f${n}-btn`);
+                btn.disabled = true;
+                btn.textContent = 'Verificando...';
+
+                const ip = await getUserIP();
+
+                if (getAttempts(ip, n) >= MAX_INTENTOS[n]) {
+                    setStatus(n, 'blocked', '🚫 Ya usaste tu demostración gratuita. Te invitamos a contactarnos para una demo personalizada a tu
+             medida. 👇');
+                    btn.textContent = 'Límite alcanzado';
+                    return;
+                }
+
+                const intentoActual = registerAttempt(ip, n);
+                const restantes     = MAX_INTENTOS[n] - intentoActual;
+
+                btn.textContent = 'Lanzando demo...';
+
+                const payload = {
+                    nombre:    document.getElementById(`f${n}-nombre`).value.trim(),
+                    email:     document.getElementById(`f${n}-email`).value.trim(),
+                    pais:      document.getElementById(`f${n}-pais`).value,
+                    telefono:  document.getElementById(`f${n}-pais`).value + document.getElementById(`f${n}-telefono`).value.trim(),
+                    demo:      getDemoSeleccionado(n),
+                    agente:    n === 1 ? 'conversacional' : 'menu',
+                    ip:        ip,
+                    timestamp: new Date().toISOString()
+                };
+
+                try {
+                    const response = await fetch(API_ENDPOINTS[n], {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        const successMsg = restantes > 0
+                            ? `✅ ¡Listo! En breve recibirás la llamada de demostración. Te queda ${restantes} intento más.`
+                            : '✅ ¡Listo! En breve recibirás la llamada. Si quieres una demo más amplia y personalizada, contáctanos. 👇';
+
+                        setStatus(n, 'success', successMsg);
+                        document.getElementById(`f${n}-nombre`).value   = '';
+                        document.getElementById(`f${n}-email`).value    = '';
+                        document.getElementById(`f${n}-telefono`).value = '';
+                        document.querySelectorAll(`.demo-option[data-form="${n}"]`).forEach(o => o.classList.remove('selected'));
+                        document.querySelector(`.demo-option[data-form="${n}"][data-value="cobranza"]`).classList.add('selected');
+
+                        if (restantes === 0) {
+                            btn.textContent = 'Límite alcanzado';
+                        } else {
+                            btn.disabled = false;
+                            btn.textContent = '🚀 Lanzar demostración';
+                        }
+                    } else {
+                        const errData = await response.json().catch(() => ({}));
+                        if (response.status === 429) {
+                            setStatus(n, 'blocked', '🚫 Ya usaste tu demostración gratuita. Te invitamos a contactarnos para una demo
+            personalizada a tu medida. 👇');
+                            btn.textContent = 'Límite alcanzado';
+                        } else {
+                            setStatus(n, 'error', `❌ Error al procesar. ${errData.message || 'Intenta nuevamente.'}`);
+                            btn.disabled = false;
+                            btn.textContent = '🚀 Lanzar demostración';
+                        }
+                    }
+
+                } catch (err) {
+                    setStatus(n, 'error', '❌ No se pudo conectar con el servidor. Verifica tu conexión.');
+                    btn.disabled = false;
+                    btn.textContent = '🚀 Lanzar demostración';
+                }
+            }
+
+            // ── FILTROS EN TIEMPO REAL ────────────────────────────────────
+            [1, 2].forEach(n => {
+                document.getElementById(`f${n}-nombre`).addEventListener('input', function() {
+                    this.value = this.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ]/g, '').slice(0, 16);
+                });
+                document.getElementById(`f${n}-telefono`).addEventListener('input', function() {
+                    this.value = this.value.replace(/\D/g, '');
+                });
+            });
+
+            // ── VERIFICAR BLOQUEO AL CARGAR ───────────────────────────────
+            (async () => {
+                const ip = await getUserIP();
+                [1, 2].forEach(n => {
+                    if (getAttempts(ip, n) >= MAX_INTENTOS[n]) {
+                        const btn = document.getElementById(`f${n}-btn`);
+                        btn.disabled = true;
+                        btn.textContent = 'Límite alcanzado';
+                        setStatus(n, 'blocked', '🚫 Ya usaste tu demostración gratuita. Te invitamos a contactarnos para una demo personalizada
+            a tu medida. 👇');
+                    }
+                });
+            })();
+        </script>
+    </body>
 </html>
